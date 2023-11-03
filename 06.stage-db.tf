@@ -4,8 +4,8 @@ resource "aws_instance" "staging_db" {
   instance_type = "t2.micro"              # Free tier
 
   vpc_security_group_ids = [
-    aws_security_group.allow-http-https.id,
-    aws_security_group.allow-ssh.id
+    aws_security_group.allow-ssh.id,
+    aws_security_group.allow-postgres.id
   ]
 
   subnet_id = aws_subnet.sbnt[0].id
