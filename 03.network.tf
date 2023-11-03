@@ -18,4 +18,16 @@ resource "aws_subnet" "sbnt" {
     tags = {
         Name = "textwizard-subnet-${count.index + 1}"
     }
+
+    depends_on = [ aws_vpc.vpc ]
+}
+
+resource "aws_internet_gateway" "igw" {
+
+    vpc_id = aws_vpc.vpc.id
+    tags = {
+        Name = "textwizard-igw"
+    }
+
+    depends_on = [ aws_internet_gateway.igw ]
 }
