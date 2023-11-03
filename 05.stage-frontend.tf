@@ -1,6 +1,6 @@
 resource "aws_instance" "staging_frontend" {
   
-  ami           = "ami-00abdd4ea7dc7ec29" # Ubuntu wih docker - custom image with 8GB disk
+  ami           = "ami-093c288026bf8a70e" # Ubuntu wih docker - custom image with 100GB disk
   instance_type = "t3.xlarge"             # Free tier
 
   vpc_security_group_ids = [
