@@ -198,3 +198,50 @@ resource "aws_security_group" "allow-wazuh" {
     Name = "allow-wazuh"
   }
 }
+
+resource "aws_security_group" "allow-monitoring" {
+  name        = "allow-monitoring"
+  description = "Allow monitoring"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    description      = "Prometheus"
+    from_port        = 9090
+    to_port          = 9090
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    description      = "Prometheus Metrics"
+    from_port        = 9100
+    to_port          = 9100
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    description      = "Grafana"
+    from_port        = 3000
+    to_port          = 3000
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "allow-monitoring"
+  }
+}
+
+

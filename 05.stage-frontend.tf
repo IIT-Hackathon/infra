@@ -1,7 +1,7 @@
 resource "aws_instance" "staging_frontend" {
   
   ami           = "ami-00abdd4ea7dc7ec29" # Ubuntu wih docker - custom image with 8GB disk
-  instance_type = "t2.micro"              # Free tier
+  instance_type = "t3.xlarge"             # Free tier
 
   vpc_security_group_ids = [
     aws_security_group.allow-http-https.id,
