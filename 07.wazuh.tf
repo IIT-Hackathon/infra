@@ -5,7 +5,8 @@ resource "aws_instance" "wazuh" {
 
   vpc_security_group_ids = [
     aws_security_group.allow-http-https.id,
-    aws_security_group.allow-ssh.id
+    aws_security_group.allow-ssh.id,
+    aws_security_group.allow-wazuh.id
   ]
 
   subnet_id = aws_subnet.sbnt[0].id
