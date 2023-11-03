@@ -22,5 +22,5 @@ output "wazuh_public_ip" {
 }
 
 output "wazuh_public_dns" {
-  value = aws_instance.staging_backend.public_dns
+  value = aws_instance.wazuh.public_dns
 }
