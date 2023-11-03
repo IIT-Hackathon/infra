@@ -154,3 +154,48 @@ resource "aws_security_group" "allow-postgres" {
     Name = "allow-postgres"
   }
 }
+
+resource "aws_security_group" "allow-wazuh" {
+  name        = "allow-wazuh"
+  description = "Allow wazuh"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    description      = "wazuh from anywhere"
+    from_port        = 1514
+    to_port          = 1514
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    description      = "wazuh from anywhere"
+    from_port        = 1515
+    to_port          = 1515
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    description      = "wazuh from anywhere"
+    from_port        = 55000
+    to_port          = 55000
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "allow-wazuh"
+  }
+}
