@@ -1,3 +1,5 @@
+
+# ----- VPC ----- #
 resource "aws_vpc" "vpc" {
     cidr_block = var.vpc_cidr
     enable_dns_hostnames = true
@@ -6,6 +8,7 @@ resource "aws_vpc" "vpc" {
     }
 }
 
+# ----- Subnet ----- #
 resource "aws_subnet" "sbnt" {
 
     count  = length(var.subnets_cidr)
@@ -22,6 +25,7 @@ resource "aws_subnet" "sbnt" {
     depends_on = [ aws_vpc.vpc ]
 }
 
+# ----- Internet Gateway ----- #
 resource "aws_internet_gateway" "igw" {
 
     vpc_id = aws_vpc.vpc.id
@@ -31,3 +35,30 @@ resource "aws_internet_gateway" "igw" {
 
     depends_on = [ aws_internet_gateway.igw ]
 }
+
+# ----- Route Table ----- #
+
+resource "aws_route_table" "rt" {
+
+    vpc_id = aws_vpc.vpc.id
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = aws_internet_gateway.igw.id
+    }
+
+    tags = {
+        Name = "textwizard-route-table"
+    }
+
+    depends_on = [ aws_internet_gateway.igw ]
+}
+
+# Attaching Routing table to Subnets
+resource "aws_route_table_association" "rta" {
+    count          = length(var.subnets_cidr)
+    subnet_id      = element(aws_subnet.sbnt.*.id , count.index)
+    route_table_id = aws_route_table.rt.id
+
+    depends_on = [ aws_route_table.rt ]
+}
+
