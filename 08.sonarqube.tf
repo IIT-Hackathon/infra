@@ -21,5 +21,5 @@ output "sonarqube_public_ip" {
 }
 
 output "sonarqube_public_dns" {
-  value = aws_instance.staging_backend.public_dns
+  value = aws_instance.sonarqube.public_dns
 }

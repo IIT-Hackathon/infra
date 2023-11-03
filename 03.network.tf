@@ -63,7 +63,7 @@ resource "aws_route_table_association" "rta" {
 }
 
 
-# ----- Security Group ----- #
+# ----- Security Groups ----- #
 resource "aws_security_group" "allow-http-https" {
   name        = "allow-http-https"
   description = "Allow HTTP HTTPS inbound traffic"
@@ -99,7 +99,6 @@ resource "aws_security_group" "allow-http-https" {
     Name = "allow-http-https"
   }
 }
-
 
 resource "aws_security_group" "allow-ssh" {
   name        = "allow-ssh"
