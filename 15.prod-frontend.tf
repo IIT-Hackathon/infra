@@ -1,7 +1,7 @@
 resource "aws_instance" "prod_frontend" {
   
   ami           = "ami-093c288026bf8a70e" # Ubuntu wih docker - custom image with 100GB disk
-  instance_type = "t3.xlarge"             # Free tier
+  instance_type = "t3.medium"             
 
   vpc_security_group_ids = [
     aws_security_group.allow-http-https.id,
