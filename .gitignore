@@ -35,6 +35,3 @@ terraform.rc
 
 .terraform.lock.hcl
 ./.terraform.lock.hcl
-
-var.tf
-./var.tf
